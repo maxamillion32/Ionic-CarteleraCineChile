@@ -1,0 +1,18 @@
+<ion-view title="Peliculas" cache-view="false">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <h4>Hola!!! {{profile.name}}</h3>
+        <h1>Peliculas</h1>
+        <h2>{{cineselectedDefault}} <a class="button button-icon icon ion-trash-a" ng-show="cineselectedDefault" ng-click="removecine()"></a></h2>
+        <ion-list>
+            <ion-item class="item-thumbnail-left" ng-repeat="item in peliculas |  filter: {cines: {name: cineselectedDefault}}">
+                <img ng-src="{{ item.img }}">
+                <h2>{{ item.name }} </h2>
+                <p ng-show="cineselectedDefault">
+                    <span ng-repeat="cine in item.cines | filter: {name:cineselectedDefault}">
+                      {{cine.infoCine}}
+                    </span>
+                </p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

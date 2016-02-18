@@ -25,20 +25,65 @@ angular.module('starter', ['ionic', 'ngCordova','ngResource', 'starter.controlle
     });
 })
 
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      request: function(config) {
+        $rootScope.$broadcast('loading:show')
+        return config
+      },
+      response: function(response) {
+        $rootScope.$broadcast('loading:hide')
+        return response
+      }
+    }
+  })
+})
+.run(function($rootScope, $ionicLoading) {
+  $rootScope.$on('loading:show', function() {
+    $ionicLoading.show({template: 'Recuperando Informacion'})
+  })
+
+  $rootScope.$on('loading:hide', function() {
+    $ionicLoading.hide()
+  })
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('tab', {
-            url: '/tab',
-            controller: 'DashCtrl',
-            templateUrl: 'templates/tabs.html'
-        })
-        .state('film', {
-            url: '/film',
-            controller: 'FilmsCtrl',
-            params:{'userProfile':null},
-            templateUrl: 'templates/tab-film.html'
-        })
+    .state('inicio', {
+        url: '/pageinicio',
+        templateUrl: 'templates/inicio.html',
+        controller:'inicioCtrl'
+    })
 
+    .state('tabsController.peliculas', {
+        url: '/pagepeliculas',
+        views: {
+            'tab2': {
+                templateUrl: 'templates/peliculas.html',
+                controller:'peliculasCtrl'
+            }
+        }
+    })
+
+    .state('tabsController.cines', {
+        url: '/pagecines',
+        views: {
+            'tab3': {
+                templateUrl: 'templates/cines.html',
+                controller:'cinesCtrl'
+            }
+        }
+    })
+
+    .state('tabsController', {
+        url: '/basetabscontrollers',
+        abstract: true,
+        templateUrl: 'templates/tabsController.html'
+    })
+    ;
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab');
+    $urlRouterProvider.otherwise('/pageinicio');
+
 });

@@ -1,33 +1,32 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $timeout, $ionicLoading, FacebookService, DatabaseService, $state) {
+.controller('inicioCtrl', function($scope, $timeout, $ionicLoading, FacebookService, DatabaseService, $state) {
     $scope.isLoginSave = false;
-    var ROUTE_FILM = 'film';
+    var ROUTE_FILM = 'tabsController.peliculas';
 
     $scope.fbLogin = function() {
-        FacebookService.fbLogin().then(function(status){
+        FacebookService.fbLogin().then(function(status) {
             if (status) {
-                FacebookService.getDataFromFacebook().then(function(datauser){
+                FacebookService.getDataFromFacebook().then(function(datauser) {
                     if (datauser) {
-                        $state.go(ROUTE_FILM, {userProfile:datauser});
+                        $state.go(ROUTE_FILM);
                     }
-                })
+                });
             }
         });
     };
 
-
     function fbData() {
         DatabaseService.selectPerson().then(function(person) {
             if (person) {
-                $state.go(ROUTE_FILM, {userProfile:person});
+                $state.go(ROUTE_FILM);
             } else {
                 $scope.isLoginSave = true;
             }
         });
     };
 
-    $scope.goListFilms = function (){
+    $scope.goListFilms = function() {
         $state.go(ROUTE_FILM);
     };
 
@@ -36,20 +35,37 @@ angular.module('starter.controllers', [])
     }, 2000);
 })
 
-.controller('FilmsCtrl', function($scope, $stateParams, Cines, Peliculas) {
-    $scope.profile = $stateParams.userProfile;
-    
-     $scope.cines = Cines.query();
-     $scope.peliculas = Peliculas.query();
+.controller('peliculasCtrl', function($scope, DatabaseService, Peliculas, $ionicLoading, $localstorage) {
+    $scope.cineselectedDefault =  $localstorage.get('cineselected');
 
-})
+    DatabaseService.selectPerson().then(function(person) {
+        $scope.profile = person;
+    });
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-    $scope.settings = {
-        enableFriends: true
+    $scope.removecine = function(){
+        $localstorage.set('cineselected', '');
+        $scope.cineselectedDefault = '';        
     };
-});
+
+    $scope.peliculas = Peliculas.query();
+})
+
+.controller('cinesCtrl', function($scope, DatabaseService, Cines, $ionicLoading, $localstorage,$state) {
+    DatabaseService.selectPerson().then(function(person) {
+        $scope.profile = person;
+    });
+
+    $scope.cines = Cines.query();
+
+    $scope.data = {
+        cineselected: $localstorage.get('cineselected')
+    };
+
+    $scope.savecine = function(nameCine) {
+            $localstorage.set('cineselected', nameCine);
+            $state.go('tabsController.peliculas', null, {reload: true});
+    };
+
+})
+
+;

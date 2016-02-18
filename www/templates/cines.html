@@ -1,0 +1,18 @@
+<ion-view title="Cines">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <h3>Hola!!! {{profile.name}}</h3>
+        <h1>Cines</h1>
+        <ion-list>
+            <ion-radio name="cines" ng-value="''" ng-model="data.cineselected" name="cines" ng-click="savecine('')">
+                <h2>Todos</h2>
+            </ion-radio>
+            <ion-radio ng-repeat="item in cines" ng-value="item.name" ng-model="data.cineselected" name="cines" ng-click="savecine(item.name)">
+                <h2>{{ item.name }}</h2>
+                <h4>{{item.address}} </h4>
+            </ion-radio>
+            <ion-radio name="cines" ng-value="''" ng-model="data.cineselected" name="cines" ng-click="savecine('')">
+                <h2>Todos</h2>
+            </ion-radio>
+        </ion-list>
+    </ion-content>
+</ion-view>
