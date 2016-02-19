@@ -14,7 +14,7 @@ before_install:
 - npm install -g bower
 - npm install
 - bower install
-- ionic pratform remove android
+- ionic platform remove android
 - ionic hooks add
 - ionic platform add android
 - cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
