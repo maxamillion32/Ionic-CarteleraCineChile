@@ -1,0 +1,27 @@
+language: android
+android:
+  components:
+    - build-tools-21.1.2
+    - android-21
+    - extra
+
+before_install:  
+- npm install -g npm
+- npm install -g grunt-cli
+- npm install -g cordova
+- npm install -g gulp
+- npm install -g ionic
+- npm install -g bower
+- npm install
+- bower install
+- ionic platform add android
+- cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
+- cordova plugin add com.ionic.keyboard
+- cordova plugin add org.apache.cordova.console
+- cordova plugin add org.apache.cordova.device
+- cordova plugin add cordova-plugin-inappbrowser
+- ionic build android --device --release
+
+env:
+    global:
+      - APP_NAME:"CarteleraCineChile"
