@@ -3,7 +3,6 @@ android:
   components:
     - build-tools-23.0.2
     - android-23
-    - extra
 
 before_install:  
 - npm install -g npm
@@ -23,8 +22,6 @@ before_install:
 - cordova plugin add org.apache.cordova.device
 - cordova plugin add cordova-plugin-inappbrowser
 - ionic build android --device --release
--  
-
 env:
     global:
       - APP_NAME:"CarteleraCineChile"
