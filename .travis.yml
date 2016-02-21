@@ -17,10 +17,8 @@ before_install:
 - ionic platform add android
 - cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 - cordova plugin add cordova-plugin-device
-- cordova plugin add org.apache.cordova.console
-- cordova plugin add org.apache.cordova.device
 - cordova plugin add cordova-plugin-inappbrowser
-- cp -R /home/travis/build/asasar/Ionic-CarteleraCineChile/platform/android/ /home/travis/build/asasar/Ionic-CarteleraCineChile
+- cp -R /home/travis/build/asasar/Ionic-CarteleraCineChile/platforms/android/ /home/travis/build/asasar/Ionic-CarteleraCineChile/
 - ionic build android --device --release
 env:
     global:
