@@ -5,4 +5,5 @@ test:
   pre:
     - gem install compass
     - npm install -g bower
-    - bower install --config.directory=./client/bower_components
+    - npm install
+    - bower install
