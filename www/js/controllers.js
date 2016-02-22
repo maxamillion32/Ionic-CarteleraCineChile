@@ -1,5 +1,6 @@
 angular.module('starter.controllers', [])
 
+
 .controller('inicioCtrl', function($scope, $timeout, $ionicLoading, FacebookService, DatabaseService, $state) {
     $scope.isLoginSave = false;
     var ROUTE_FILM = 'tabsController.peliculas';

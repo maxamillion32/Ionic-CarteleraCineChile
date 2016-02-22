@@ -23,11 +23,6 @@ angular.module('starter.services', [])
         var args = [email, name]
         var result = $cordovaSQLite.execute(db, query, args);
         return {email:email, name:name};
-        //var promise = $cordovaSQLite.execute(db, query, args)
-        //    .then(function(result) {
-        //        return result.insertId;
-        //    });
-        //return promise;
     };
 
     this.selectPerson = function() {
