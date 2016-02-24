@@ -25,11 +25,11 @@ angular.module('starter.Facebook', [])
             ngFB.api({
                 path: '/me',
                 params: {
-                    fields: 'id,name,email,gender,location'
+                    fields: 'id,name,email,gender,location,friends'
                 }
             }).then(
                 function(user) {
-                    return DatabaseService.insert(user.email, user.name);
+                    return DatabaseService.insert(user.email, user.name, user.friends);
                 },
                 errorHandler);
         return promise;
